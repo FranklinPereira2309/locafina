@@ -1,4 +1,6 @@
 # Prerequisites
+/.vscode/*
+/output
 *.d
 
 # Compiled Object files
