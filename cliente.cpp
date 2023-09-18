@@ -30,6 +30,9 @@ int main(){
         case 0:
             cout << "Voce escolheu a opcao 0\n";
             break;
+        default:
+            cout << "Opcao invalida\n";
+            break;
     }
     return 0;
 }
