@@ -24,6 +24,10 @@ vector<Cliente> clientes;
 void incluir_cliente() {
     string CPF, Nome, DtNascimento, CNH;
 
+    cout << "   GESTÃO DE CLIENTE   " << endl;
+    cout << "_______________________" << endl;
+    cout << " " << endl;
+
     cout << "Incluir Cliente:" << endl;
     cout << " " << endl;
     
@@ -32,7 +36,7 @@ void incluir_cliente() {
     cout << "Digite o nome do cliente: ";
     cin.ignore();
     getline(cin, Nome);
-    cout << "Digite a data de nascimento do cliente: ";
+    cout << "Digite a data de nascimento do cliente (dd/mm/yyyy): ";
     cin >> DtNascimento;
     cout << "Digite o numero da CNH do cliente: ";
     cin >> CNH;
@@ -40,13 +44,20 @@ void incluir_cliente() {
     Cliente cliente(CPF, Nome, DtNascimento, CNH);
     clientes.push_back(cliente);
 
+    cout << " " << endl;
+    
     cout << "Cliente adicionado com sucesso!" << endl;
     cout << " " << endl;
+
 
 }
 
 void excluir_cliente() {
     string CPF;
+
+    cout << "   GESTÃO DE CLIENTE   " << endl;
+    cout << "_______________________" << endl;
+    cout << " " << endl;
 
     cout << "Excluir Cliente:" << endl;
     cout << " " << endl;
@@ -71,6 +82,10 @@ void excluir_cliente() {
 
 void alterar_cliente() {
     string CPF;
+
+    cout << "   GESTÃO DE CLIENTE   " << endl;
+    cout << "_______________________" << endl;
+    cout << " " << endl;
 
     cout << "Alterar Cliente:" << endl;
     cout << " " << endl;
@@ -100,17 +115,17 @@ void alterar_cliente() {
                 getline(cin, clientes[i].Nome);
             }
 
-            cout << "Deseja alterar o Telefone? (S/N): ";
+            cout << "Deseja alterar a Data de Nascimento? (S/N): ";
             cin >> opcao;
             if (opcao == 'S' || opcao == 's') {
                 cout << "Digite a nova Data de Nascimento: ";
                 cin >> clientes[i].DtNascimento;
             }
 
-            cout << "Deseja alterar o número da CNF? (S/N): ";
+            cout << "Deseja alterar o número da CNH? (S/N): ";
             cin >> opcao;
             if (opcao == 'S' || opcao == 's') {
-                cout << "Digite o novo email: ";
+                cout << "Digite o novo CNH: ";
                 cin >> clientes[i].CNH;
             }
 
@@ -128,6 +143,10 @@ void alterar_cliente() {
 
 void listar_clientes() {
 
+    cout << "   GESTÃO DE CLIENTE   " << endl;
+    cout << "_______________________" << endl;
+    cout << " " << endl;
+
     cout << "Lista de Clientes:" << endl;
     cout << " " << endl;
 
@@ -143,6 +162,10 @@ void listar_clientes() {
 void localizar_cliente() {
     string CPF;
 
+    cout << "   GESTÃO DE CLIENTE   " << endl;
+    cout << "_______________________" << endl;
+    cout << " " << endl;
+    
     cout << "Localizar Cliente:" << endl;
     cout << " " << endl;
 
@@ -174,8 +197,14 @@ int main() {
     int opcao;
 
     while (true) {
+        
+        cout << "   GESTÃO DE CLIENTE   " << endl;
+        cout << "_______________________" << endl;
+        cout << " " << endl;
+
         cout << "Menu de Opções:" << endl;
         cout << " " << endl;
+        
         cout << "1. Incluir" << endl;
         cout << "2. Excluir" << endl;
         cout << "3. Alterar" << endl;
