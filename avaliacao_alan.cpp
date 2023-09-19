@@ -18,7 +18,7 @@ struct Veiculo {
     string horaEntrega;      
     string lojaRetirada;  
 };
-
+// funcai para incuir clientes e adicionar em um vetor
 void incluirCliente(vector<Cliente> &agendaClientes) {
     Cliente cliente;
 
@@ -37,7 +37,7 @@ void incluirCliente(vector<Cliente> &agendaClientes) {
     agendaClientes.push_back(cliente);
     cout << "Cliente adicionado com sucesso!" << endl;
 }
-
+// funcao para realizar a exclusao de cliente
 void excluirCliente(vector<Cliente> &agendaClientes) {
     string cpf;
     cout << "Digite o CPF do Cliente a ser excluido: ";
@@ -53,7 +53,7 @@ void excluirCliente(vector<Cliente> &agendaClientes) {
         }
     }
 }
-
+// funcao para alterar os dados de um cliente
 void alterarCliente(vector<Cliente> &agendaClientes) {
     string cpf;
     cout << "Digite o CPF do Cliente a ser alterado: ";
@@ -99,7 +99,7 @@ void alterarCliente(vector<Cliente> &agendaClientes) {
 
     cout << "Cliente com CPF " << cpf << " nao encontrado na agenda." << endl;
 }
-
+// funcao para listar clientes cadastrados
 void listarClientes(const vector<Cliente> &agendaClientes) {
     if (agendaClientes.empty()) {
         cout << "A agenda de clientes esta vazia." << endl;
@@ -110,7 +110,11 @@ void listarClientes(const vector<Cliente> &agendaClientes) {
         cout << "Nome: " << cliente.nome << ", CPF: " << cliente.cpf << ", Data de Nascimento: " << cliente.dataNascimento << ", CNH: " << cliente.numeroCNH << endl;
     }
 }
+/*
+    A partir daqui é o modulo de veiculos
+*/
 
+// funcao para incluir veiculos em um vetor
 void incluirVeiculo(vector<Veiculo> &veiculos) {
     Veiculo veiculo;
 
@@ -132,7 +136,7 @@ void incluirVeiculo(vector<Veiculo> &veiculos) {
     veiculos.push_back(veiculo);
     cout << "Veiculo adicionado com sucesso!" << endl;
 }
-
+// funcao para excluir veiculo
 void excluirVeiculo(vector<Veiculo> &veiculos) {
     string placa;
     cout << "Digite a placa do veiculo a ser excluido: ";
@@ -148,7 +152,7 @@ void excluirVeiculo(vector<Veiculo> &veiculos) {
         }
     }
 }
-
+// funcao para alterar veiculo
 void alterarVeiculo(vector<Veiculo> &veiculos) {
     string placa;
     cout << "Digite a placa do veiculo a ser alterado: ";
@@ -204,7 +208,7 @@ void alterarVeiculo(vector<Veiculo> &veiculos) {
 
     cout << "Veiculo com placa " << placa << " nao encontrado na colecao." << endl;
 }
-
+// funcao paa listar veiculos 
 void listarVeiculos(const vector<Veiculo> &veiculos) {
     if (veiculos.empty()) {
         cout << "A lista de veiculos esta vazia." << endl;
@@ -270,9 +274,8 @@ int main() {
                 cout << "Programa finalizado." << endl;
                 return 0;
             default:
-                cout << "Opcao invalida! Tente novamente." << endl;
+                cout << "Opcao invalida, por favor, tente novamente." << endl;
         }
     }
-
     return 0;
 }
