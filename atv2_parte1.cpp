@@ -4,52 +4,47 @@
 
 using namespace std;
 
-class Cliente {
+struct Cliente {
 
-public:
     string CPF;
     string Nome;
     string DtNascimento;
     string CNH;
-
-    Cliente(const string& CPF, const string& Nome, const string& 
-    DtNascimento, const string& CNH)
-
-    : CPF(CPF), Nome(Nome), DtNascimento(DtNascimento), CNH(CNH) {}
-
 };
-
 
 void incluirCliente(vector<Cliente>& clientes) {
 
     string CPF, Nome, DtNascimento, CNH;
-    
+
     cout << "Informe o CPF do cliente: ";
     cin >> CPF;
-    
+
     cout << "Informe o Nome do cliente: ";
     cin.ignore();
-    
     getline(cin, Nome);
+
     cout << "Informe a data de nascimento do cliente (dd/mm): ";
     cin >> DtNascimento;
-    
+
     cout << "Informe o numero da CNH do cliente: ";
     cin >> CNH;
 
-    clientes.push_back(Cliente(CPF, Nome, DtNascimento, CNH));
+    Cliente novoCliente = {CPF, Nome, DtNascimento, CNH};
+    clientes.push_back(novoCliente);
+
     cout << "Cliente adicionado com sucesso!" << endl;
 }
 
 void excluirCliente(vector<Cliente>& clientes, const string& CPF) {
 
     for (auto it = clientes.begin(); it != clientes.end(); ++it) {
-        
+
         if (it->CPF == CPF) {
             clientes.erase(it);
-            
             cout << "Cliente com CPF " << CPF << " excluido com sucesso!" << endl;
+
             return;
+
         }
     }
 
@@ -57,33 +52,39 @@ void excluirCliente(vector<Cliente>& clientes, const string& CPF) {
 }
 
 void listarClientes(const vector<Cliente>& clientes) {
+
     cout << "Lista de Clientes:" << endl;
 
     for (const Cliente& cliente : clientes) {
+
         cout << "CPF: " << cliente.CPF << endl;
         cout << "Nome: " << cliente.Nome << endl;
         cout << "Data de Nascimento: " << cliente.DtNascimento << endl;
         cout << "CNH: " << cliente.CNH << endl;
+
         cout << endl;
+
     }
 }
 
 void localizarCliente(const vector<Cliente>& clientes, const string& CPF) {
-    
+
     for (const Cliente& cliente : clientes) {
-       
+
         if (cliente.CPF == CPF) {
+
             cout << "Cliente encontrado:" << endl;
             cout << "CPF: " << cliente.CPF << endl;
             cout << "Nome: " << cliente.Nome << endl;
             cout << "Data de Nascimento: " << cliente.DtNascimento << endl;
             cout << "CNH: " << cliente.CNH << endl;
-           
             return;
+
         }
     }
 
     cout << "Cliente com CPF " << CPF << " não encontrado." << endl;
+
 }
 
 int main() {
@@ -91,20 +92,19 @@ int main() {
     vector<Cliente> clientes;
 
     while (true) {
-        
+
         cout << "Escolha uma das opcoes:" << endl;
         cout << "1. Incluir" << endl;
         cout << "2. Excluir" << endl;
         cout << "3. Alterar (apenas por CPF)" << endl;
         cout << "4. Listar" << endl;
-        cout << "5. Localizar (por CPF)"<< endl;
+        cout << "5. Localizar (por CPF)" << endl;
         cout << "0. Sair" << endl;
-        
-        int opcoesIndice;
-        cin >> opcoesIndice;
 
+        int opcao;
+        cin >> opcao;
 
-        switch (opcoesIndice) {
+        switch (opcao) {
             case 1:
                 incluirCliente(clientes);
                 break;
@@ -123,17 +123,16 @@ int main() {
                 cin >> CPF;
 
                 for (Cliente& cliente : clientes) {
-                
                     if (cliente.CPF == CPF) {
                         cout << "CPF: " << cliente.CPF << endl;
-                        cout << "Nome: " << cliente.Nome << endl;
-                        cout << "Data de Nascimento: " << cliente.DtNascimento << endl;
-                        cout << "CNH: " << cliente.CNH << endl;
+                        cout << "Nome atual: " << cliente.Nome << endl;
+                        cout << "Data de Nascimento atual: " << cliente.DtNascimento << endl;
+                        cout << "CNH atual: " << cliente.CNH << endl;
 
                         cout << "Deseja alterar o Nome? (S/N): ";
                         char escolha;
                         cin >> escolha;
-                
+
                         if (escolha == 'S' || escolha == 's') {
                             cout << "Novo Nome: ";
                             cin.ignore();
@@ -142,7 +141,7 @@ int main() {
 
                         cout << "Deseja alterar o CPF? (S/N): ";
                         cin >> escolha;
-                
+
                         if (escolha == 'S' || escolha == 's') {
                             cout << "Novo CPF: ";
                             cin >> cliente.CPF;
@@ -150,7 +149,7 @@ int main() {
 
                         cout << "Deseja alterar a data de nascimento? (S/N): ";
                         cin >> escolha;
-                
+
                         if (escolha == 'S' || escolha == 's') {
                             cout << "Nova data de nascimento: ";
                             cin >> cliente.DtNascimento;
@@ -158,15 +157,14 @@ int main() {
 
                         cout << "Deseja alterar a CNH? (S/N): ";
                         cin >> escolha;
-                
+
                         if (escolha == 'S' || escolha == 's') {
                             cout << "Nova CNH: ";
                             cin >> cliente.CNH;
                         }
 
-                        cout << "Cliente alterado!" << endl;
+                        cout << "Cliente alterado com sucesso!" << endl;
                         break;
-
                     }
                 }
 
@@ -176,25 +174,20 @@ int main() {
             case 4:
                 listarClientes(clientes);
                 break;
-            
+
             case 5: {
                 string CPF;
-                
                 cout << "Informe o CPF do cliente a ser localizado: ";
                 cin >> CPF;
-                
                 localizarCliente(clientes, CPF);
                 break;
-
             }
 
             case 0:
-            
                 cout << "Cadastro finalizado." << endl;
                 return 0;
-            
+
             default:
-            
                 cout << "Opcao invalida. Tente novamente." << endl;
         }
     }
