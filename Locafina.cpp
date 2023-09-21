@@ -362,6 +362,54 @@ void excluirLocacao(vector<Locacao> &locacoes) {
     }
 }
 
+void alterarLocacao(vector<Locacao> &locacoes) {
+    system("clear||cls");
+    if (locacoes.empty()) {
+        cout << "Nao ha locacoes cadastradas." << endl;
+        system("pause");
+        return;
+    }
+
+    cout << "Lista de locacoes:" << endl;
+    for (size_t i = 0; i < locacoes.size(); ++i) {
+        cout << i + 1 << ". Cliente: " << locacoes[i].cliente.nome << " | Data de retirada: " << locacoes[i].data_hora_retirada << endl;
+    }
+
+    int escolha;
+    cout << "Escolha o numero da locacao que deseja alterar (0 para sair): ";
+    cin >> escolha;
+
+    if (escolha == 0) {
+        return;
+    }
+
+    if (escolha < 1 || escolha > static_cast<int>(locacoes.size())) {
+        cout << "Escolha invalida." << endl;
+        system("pause");
+        return;
+    }
+
+    Locacao &locacao = locacoes[escolha - 1];
+
+    cout << "Dados da locacao selecionada:" << endl;
+    cout << "Cliente: " << locacao.cliente.nome << endl;
+    cout << "Placa do veiculo: " << locacao.veiculo.placa << endl;
+    cout << "Data/hora de retirada: " << locacao.data_hora_retirada << endl;
+    cout << "Retirada realizada? (S-Sim / N-Nao): ";
+    
+    char opcao;
+    cin >> opcao;
+
+    if (opcao == 'S' || opcao == 's') {
+        locacao.realizada = true;
+    } else if (opcao == 'N' || opcao == 'n') {
+        locacao.realizada = false;
+    } else {
+        cout << "Opção invalida." << endl;
+        system("pause");
+    }
+}
+
 void menuVeiculos (vector<Veiculo> &veiculos){
     while (true) {
         system("clear||cls");
