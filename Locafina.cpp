@@ -469,6 +469,65 @@ void incluirOcorrencia (vector<Locacao> &locacoes, vector<Ocorrencia> &ocorrenci
 
 }
 
+void excluirOcorrencia(vector<Ocorrencia> &ocorrencias) {
+    Ocorrencia ocorrencia;
+    string cpf, placa;
+    int sair, indice = 1, escolha;
+    bool ocorrenciaEncontrada = false;
+
+    cout << "Para localizar tenha em mãos <->  PLACA e CPF <->\n";
+    cout << "Informe a PLACA: ";
+    getline(cin >> ws, placa);
+    cout << "Informe o CPF: ";
+    getline(cin >> ws, cpf);
+    for(auto ocorrencia = ocorrencias.begin(); ocorrencia != ocorrencias.end(); ocorrencia++) {
+        if(ocorrencia->veiculo.placa == placa && ocorrencia->cliente.cpf == cpf) {
+            ocorrenciaEncontrada = true;
+            cout << indice << "ª Ocorrencia\n" 
+                 << "Numero da Apolice: " << ocorrencia->numeroApolice << endl;
+            cout << "Cnh:" << ocorrencia->cliente.cnh << endl;
+            cout << "Placa do veiculo: " << ocorrencia->veiculo.placa << endl;
+            cout << "Data e Hora da Ocorrencia: " << ocorrencia->data_hora << endl;
+            cout << "Descricao: " << ocorrencia->descricao << endl;
+            cout << "-------------------------------------------------\n";
+            cout << "Indice: " << indice << endl;
+            cout << endl;
+            indice++;
+        }
+    }
+    
+               
+    
+    if(!ocorrenciaEncontrada) {
+        cout << "Ocorrencia nao encontrada. Retorne ao modulo de ocorrencias para cadastrar." << endl;
+        //cout << "-> Tecla qualquer numero pra sair <- ";
+        //cin >> sair;
+        
+    } 
+    if(ocorrenciaEncontrada){
+        
+        cout << "\nInforme o numero da ocorrencia a ser excluida: \n";
+        cin >> escolha;
+            
+        if(escolha >=1 && escolha <= ocorrencias.size()) {
+                
+            ocorrencias.erase((ocorrencias.begin() + escolha)-1);
+            cout << "Ocorrencia exluida com sucesso!" << endl;
+                
+
+        }else {
+            cout << "Escolha invalida" << endl;
+              
+        }
+
+    }
+           
+    cout << "-> Tecla qualquer numero pra sair <- ";
+    cin >> sair;
+    return;
+    
+}
+
 void menuOcorrencia(vector<Locacao> &locacoes, vector<Ocorrencia> &ocorrencias){
     while (true) {
         system("clear||cls");
