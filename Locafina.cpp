@@ -616,13 +616,18 @@ void listaOcorrenciasClientes(vector<Cliente> &clientes, vector<Ocorrencia> &oco
                 for (const Locacao &locacao : locacoes) {
                     for (const Ocorrencia &ocorrencia : ocorrencias) {
                         if (locacao.cliente.cpf == cpf) {
-                            cout << ocorrencia.descricao << endl;
+                            if(locacao.ocorrencia.data_hora_ocorrencia == ocorrencia.data_hora_ocorrencia
+                            && locacao.ocorrencia.descricao == ocorrencia.descricao
+                            && locacao.ocorrencia.numApolice == ocorrencia.numApolice){
+                                cout << ocorrencia.descricao << endl;
+                            }
                         }
                     }
                 }
             } else {
                 cout << "O cliente nao apresenta ocorrencias!" << endl;                
             }
+            system("pause");
             return;
         }
     }
@@ -639,16 +644,21 @@ void listarOcorrenciasPorVeiculo(vector<Ocorrencia> &ocorrencias, vector<Locacao
     string placa;
     bool encontrado = false;
     
-    cout << "Digite a placa do veículo: ";
+    cout << "Digite a placa do veiculo: ";
     cin >> placa;
 
-    cout << "Ocorrências do veículo com placa " << placa << ":" << endl;
+    cout << "Ocorrências do veiculo com placa " << placa << ":" << endl;
     for (const Locacao &locacao : locacoes) {
         for (const Ocorrencia &ocorrencia : ocorrencias) {
             if (locacao.veiculo.placa == placa) {
-                cout << "Descrição: " << ocorrencia.descricao << endl;
-                cout << "Data: " << ocorrencia.data_hora_ocorrencia << endl;
-                cout << "Apólice: " << ocorrencia.numApolice << endl;
+                if(locacao.ocorrencia.data_hora_ocorrencia == ocorrencia.data_hora_ocorrencia
+                    && locacao.ocorrencia.descricao == ocorrencia.descricao
+                    && locacao.ocorrencia.numApolice == ocorrencia.numApolice){
+                        encontrado = true;
+                        cout << "Descricao: " << ocorrencia.descricao << endl;
+                        cout << "Data: " << ocorrencia.data_hora_ocorrencia << endl;
+                        cout << "Apolice: " << ocorrencia.numApolice << endl;
+                }
             }
         }
     }
