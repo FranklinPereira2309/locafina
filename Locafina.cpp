@@ -32,6 +32,7 @@ struct Locacao {
     string data_hora_retirada;
     string data_hora_entrega;
     bool realizada;
+    vector<Ocorrencia> ocorrencias;
 };
 
 void incluirCliente(vector<Cliente> &clientes) {
@@ -494,9 +495,7 @@ void excluirOcorrencia(vector<Ocorrencia> &ocorrencias) {
             cout << endl;
             indice++;
         }
-    }
-    
-               
+    }          
     
     if(!ocorrenciaEncontrada) {
         cout << "Ocorrencia nao encontrada. Retorne ao modulo de ocorrencias para cadastrar." << endl;
@@ -526,6 +525,55 @@ void excluirOcorrencia(vector<Ocorrencia> &ocorrencias) {
     cin >> sair;
     return;
     
+}
+
+void alterarOcorrencia(vector<Locacao> &locacoes) {
+    system("clear||cls");
+    string cpf, placa;
+    cout << "Digite o CPF do cliente: ";
+    cin >> cpf;
+    cout << "Digite a placa do veiculo: ";
+    cin >> placa;
+
+    bool found = false;
+    for (auto &locacao : locacoes) {
+        if (locacao.cliente.cpf == cpf && locacao.veiculo.placa == placa) {
+            if (locacao.ocorrencias.empty()) {
+                cout << "Nenhuma ocorrencia registrada para esta locacao." << endl;
+                system("pause");
+                return;
+            }
+
+            cout << "Descricao da ocorrencia atual: " << locacao.ocorrencias.back().descricao << endl;
+            cout << "Data da ocorrencia atual: " << locacao.ocorrencias.back().data_hora_ocorrencia << endl;
+
+            char opcao;
+            cout << "Deseja alterar a descricao da ocorrencia? (S-Sim / N-Nao): ";
+            cin >> opcao;
+            if (opcao == 'S' || opcao == 's') {
+                cout << "Digite a nova descricao da ocorrencia: ";
+                cin.ignore(); 
+                getline(cin, locacao.ocorrencias.back().descricao);
+            }
+
+            cout << "Deseja alterar a data da ocorrencia? (S-Sim / N-Nao): ";
+            cin >> opcao;
+            if (opcao == 'S' || opcao == 's') {
+                cout << "Digite a nova data da ocorrencia: ";
+                cin >> locacao.ocorrencias.back().data_hora_ocorrencia;
+            }
+
+            cout << "Ocorrencia alterada com sucesso!" << endl;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "Locacao nao encontrada para o CPF e placa informados." << endl;
+    }
+
+    system("pause");
 }
 
 void menuOcorrencia(vector<Locacao> &locacoes, vector<Ocorrencia> &ocorrencias){
