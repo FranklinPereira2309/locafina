@@ -410,6 +410,31 @@ void alterarLocacao(vector<Locacao> &locacoes) {
     }
 }
 
+void listarLocacao(vector<Locacao> &locacoes){
+    system("clear||cls");
+    if(locacoes.empty()){
+       cout << "Nao ha locacoes de veiculos registrados" << endl;
+    }
+    else {
+        cout << "Lista de locacoes: " << endl;
+        for (auto locacao = locacoes.begin(); locacao != locacoes.end(); locacao++) {
+            cout << "Cliente: " << locacao->cliente.nome << endl;
+            cout << "CNH: " << locacao->cliente.cnh << endl;
+            cout << "CPF: " << locacao->cliente.cpf << endl;
+            cout << "Placa do veiculo: " << locacao->veiculo.placa << endl;
+            cout << "Data e hora de retirada: " << locacao->data_hora_retirada << endl;
+            if(locacao->realizada){
+                cout << "Retirada realizada! " << endl;
+            }
+            else{
+                cout << "Retirada nao realizada! " << endl;
+            }
+            cout << "----------------------------------------" << endl;
+        }
+    }
+    system("pause");
+}
+
 void menuVeiculos (vector<Veiculo> &veiculos){
     while (true) {
         system("clear||cls");
@@ -508,16 +533,16 @@ void menuLocacao(vector<Locacao> &locacoes, vector<Veiculo> &veiculos, vector<Cl
 
         switch (escolha) {
             case 1:
-                // implementar função de incluir 
+                incluirLocacao(locacoes, veiculos, clientes);
                 break;
             case 2:
-                // implementar função de excluir 
+                excluirLocacao(locacoes);
                 break;
             case 3:
-                // implementar função de alterar 
+                alterarLocacao(locacoes); 
                 break;
             case 4:
-                // implementar função de listar 
+                listarLocacao(locacoes); 
                 break;
             case 0:
                 cout << "Retornando ao menu principal." << endl;
