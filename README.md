@@ -13,6 +13,7 @@ Elaborar um programa para a empresa LocaFINA que simule a locação de veículos
 - Módulo com menu para gestão de clientes (1.Incluir, 2. Excluir, 3. Alterar (apenas por CPF), 4. Listar, 5. Localizar (apenas por cpf), 0. Sair)
 - Módulo com menu para gestão de veículos (1.Incluir, 2. Excluir, 3. Alterar (apenas por CPF), 4. Listar, 5. Localizar (apenas por cpf), 0. Sair)
 - Módulo com menu para gestão de locação (1.Incluir, 2. Excluir, 3. Alterar (apenas por CPF), 4. Listar, 0. Sair)
+- Módulo com menu para gestão de ocorrências (1.Incluir, 2. Excluir, 3. Alterar, 4. Listar por cliente, 5. Listar por veiculo, 0. Sair)
 
 ## Autores
 

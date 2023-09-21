@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <stdio.h>
 
 
 using namespace std;
@@ -470,32 +471,41 @@ void incluirOcorrencia (vector<Locacao> &locacoes, vector<Ocorrencia> &ocorrenci
 
 }
 
-void excluirOcorrencia(vector<Ocorrencia> &ocorrencias) {
+void excluirOcorrencia(vector<Ocorrencia> &ocorrencias, vector<Locacao> &locacoes) {
     Ocorrencia ocorrencia;
     string cpf, placa;
     int sair, indice = 1, escolha;
     bool ocorrenciaEncontrada = false;
+    bool locacaoEncontrada = false;
 
     cout << "Para localizar tenha em mãos <->  PLACA e CPF <->\n";
     cout << "Informe a PLACA: ";
     getline(cin >> ws, placa);
     cout << "Informe o CPF: ";
     getline(cin >> ws, cpf);
-    for(auto ocorrencia = ocorrencias.begin(); ocorrencia != ocorrencias.end(); ocorrencia++) {
-        if(ocorrencia->veiculo.placa == placa && ocorrencia->cliente.cpf == cpf) {
-            ocorrenciaEncontrada = true;
-            cout << indice << "ª Ocorrencia\n" 
-                 << "Numero da Apolice: " << ocorrencia->numeroApolice << endl;
-            cout << "Cnh:" << ocorrencia->cliente.cnh << endl;
-            cout << "Placa do veiculo: " << ocorrencia->veiculo.placa << endl;
-            cout << "Data e Hora da Ocorrencia: " << ocorrencia->data_hora << endl;
-            cout << "Descricao: " << ocorrencia->descricao << endl;
-            cout << "-------------------------------------------------\n";
-            cout << "Indice: " << indice << endl;
-            cout << endl;
-            indice++;
+
+    for (auto locacao = locacoes.begin(); locacao != locacoes.end(); locacao++) {
+        if (locacao->cliente.cpf == cpf && locacao->veiculo.placa == placa) {
+             for(auto ocorrencia = ocorrencias.begin(); ocorrencia != ocorrencias.end(); ocorrencia++) {
+                if(locacao->ocorrencia.data_hora_ocorrencia == ocorrencia->data_hora_ocorrencia 
+                && locacao->ocorrencia.descricao == ocorrencia->descricao 
+                && locacao->ocorrencia.numApolice == ocorrencia->numApolice) {
+                    ocorrenciaEncontrada = true;
+                    cout << indice << "ª ocorrencia" << endl; 
+                    cout << "Numero da Apolice: " << ocorrencia->numApolice << endl;
+                    cout << "Cnh:" << locacao->cliente.cnh << endl;
+                    cout << "Placa do veiculo: " << locacao->veiculo.placa << endl;
+                    cout << "Data e Hora da Ocorrencia: " << ocorrencia->data_hora_ocorrencia << endl;
+                    cout << "Descricao: " << ocorrencia->descricao << endl;
+                    cout << "-------------------------------------------------\n";
+                    cout << endl;
+                    indice++;
+                }
+            }
         }
-    }          
+    }
+    
+             
     
     if(!ocorrenciaEncontrada) {
         cout << "Ocorrencia nao encontrada. Retorne ao modulo de ocorrencias para cadastrar." << endl;
@@ -575,10 +585,9 @@ void alterarOcorrencia(vector<Locacao> &locacoes) {
 
     system("pause");
 }
-void listaOcorrenciasClientes(vector<Veiculo> &veiculos, vector<Cliente> &clientes, vector<Ocorrencia> &ocorrencias) {
+void listaOcorrenciasClientes(vector<Cliente> &clientes, vector<Ocorrencia> &ocorrencias,  vector<Locacao> &locacoes) {
     
     string cpf;
-
     cout << "Digite o CPF do cliente: ";
     cin >> cpf;
 
@@ -589,32 +598,42 @@ void listaOcorrenciasClientes(vector<Veiculo> &veiculos, vector<Cliente> &client
         if (cliente.cpf == cpf) {
             clienteEncontrado = true;
 
-            for (const Ocorrencia &ocorrencia : ocorrencias) {
-                if (ocorrencia.cpfCliente == cpf) {
-                    totalOcorrencias++;
+            for (const Locacao &locacao : locacoes) {
+                for (const Ocorrencia &ocorrencia : ocorrencias) {
+                    if (locacao.cliente.cpf == cpf) {
+                        if(locacao.ocorrencia.data_hora_ocorrencia == ocorrencia.data_hora_ocorrencia
+                        && locacao.ocorrencia.descricao == ocorrencia.descricao
+                        && locacao.ocorrencia.numApolice == ocorrencia.numApolice){
+                            totalOcorrencias++;
+                        }
+                    }
                 }
             }
 
             if (totalOcorrencias > 0) {
                 cout << "Total de ocorrencias associadas ao CPF: " << totalOcorrencias << endl;
                 
-                for (const Ocorrencia &ocorrencia : ocorrencias) {
-                    if (ocorrencia.cpfCliente == cpf) {
-                        cout << ocorrencia.tipo << endl;
+                for (const Locacao &locacao : locacoes) {
+                    for (const Ocorrencia &ocorrencia : ocorrencias) {
+                        if (locacao.cliente.cpf == cpf) {
+                            cout << ocorrencia.descricao << endl;
+                        }
                     }
                 }
             } else {
                 cout << "O cliente nao apresenta ocorrencias!" << endl;                
             }
-
             return;
         }
     }
-
-    cout << "CPF nao encontrado. Realize uma nova busca ou finalize a tarefa" << endl;
+    if(!clienteEncontrado){
+        cout << "CPF nao encontrado. Realize uma nova busca ou finalize a tarefa" << endl;
+    }
+    system("pause");
+    
 }
 
-void listarOcorrenciasPorVeiculo(vector<Ocorrencia> &ocorrencias) {
+void listarOcorrenciasPorVeiculo(vector<Ocorrencia> &ocorrencias, vector<Locacao> &locacoes) {
     
     system("clear||cls");
     string placa;
@@ -624,11 +643,13 @@ void listarOcorrenciasPorVeiculo(vector<Ocorrencia> &ocorrencias) {
     cin >> placa;
 
     cout << "Ocorrências do veículo com placa " << placa << ":" << endl;
-    for (const auto& ocorrencia : ocorrencias) {
-        if (ocorrencia.placaveiculo == placa) {
-            cout << "Descrição: " << ocorrencia.descricao << endl;
-            cout << "Data: " << ocorrencia.data_hora_ocorrencia << endl;
-            cout << "Apólice: " << ocorrencia.numApolice << endl;
+    for (const Locacao &locacao : locacoes) {
+        for (const Ocorrencia &ocorrencia : ocorrencias) {
+            if (locacao.veiculo.placa == placa) {
+                cout << "Descrição: " << ocorrencia.descricao << endl;
+                cout << "Data: " << ocorrencia.data_hora_ocorrencia << endl;
+                cout << "Apólice: " << ocorrencia.numApolice << endl;
+            }
         }
     }
 
@@ -636,10 +657,11 @@ void listarOcorrenciasPorVeiculo(vector<Ocorrencia> &ocorrencias) {
         cout << "Veiculo nao encontrado." << endl;
     
     }
+    system("pause");
 }
 
 
-void menuOcorrencia(vector<Locacao> &locacoes, vector<Ocorrencia> &ocorrencias){
+void menuOcorrencia(vector<Cliente> &clientes, vector<Locacao> &locacoes, vector<Ocorrencia> &ocorrencias){
     while (true) {
         system("clear||cls");
         int escolha;
@@ -658,13 +680,16 @@ void menuOcorrencia(vector<Locacao> &locacoes, vector<Ocorrencia> &ocorrencias){
                 incluirOcorrencia(locacoes, ocorrencias);
                 break;
             case 2:
-                
+                excluirOcorrencia(ocorrencias, locacoes);
                 break;
             case 3:
-                
+                alterarOcorrencia(locacoes);
                 break;
             case 4:
-                
+                listaOcorrenciasClientes(clientes, ocorrencias, locacoes);
+                break;
+            case 5:
+                listarOcorrenciasPorVeiculo(ocorrencias, locacoes);
                 break;
             case 0:
                 cout << "Retornando ao menu principal." << endl;
@@ -827,7 +852,7 @@ int main() {
                 menuLocacao(locacoes, veiculos, clientes);
                 break;
             case 4:
-               menuOcorrencia(locacoes, ocorrencias);
+               menuOcorrencia(clientes, locacoes, ocorrencias);
             case 0:
                 cout << "Saindo do programa..." << endl;
                 system("clear||cls");
