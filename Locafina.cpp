@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <conio.h>
+
 
 using namespace std;
 
@@ -337,6 +337,29 @@ void incluirLocacao(vector<Locacao> &locacoes, vector<Veiculo> &veiculos, vector
     locacoes.push_back(locacao);
     cout << "Locacao registrada com sucesso!" << endl;
     system("pause");
+}
+
+void excluirLocacao(vector<Locacao> &locacoes) {
+    string placa;
+    cout << "Informe a placa do veiculo para listar as locacoes: ";
+    getline(cin >> ws, placa);
+    cout << "Locacoes para o veiculo com placa " << placa << ":" << endl;
+    int indice = 1;
+    for (auto locacao = locacoes.begin(); locacao != locacoes.end(); locacao++) {
+        if (locacao->veiculo.placa == placa) {
+            cout << indice << ". Cliente " << locacao->cliente.nome << " | Data de retirada: " << locacao->data_hora_retirada << endl;
+        }
+        indice++;
+    }
+    int escolha;
+    cout << "Informe o numero da locacao a ser excluida: ";
+    cin >> escolha;
+    if (escolha >= 1 && escolha <= locacoes.size()) {
+        locacoes.erase((locacoes.begin() + escolha) - 1);
+        cout << "Locacao excluida com sucesso!" << endl;
+    } else {
+        cout << "Escolha invalida" << endl;
+    }
 }
 
 void menuVeiculos (vector<Veiculo> &veiculos){
