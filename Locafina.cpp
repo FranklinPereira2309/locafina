@@ -287,7 +287,57 @@ void localizarVeiculo(const vector<Veiculo>& veiculos) {
     
 }
 
-
+void incluirLocacao(vector<Locacao> &locacoes, vector<Veiculo> &veiculos, vector<Cliente> &clientes) {
+    system("clear||cls");
+    Locacao locacao;
+    string cpf, placa;
+    char opcao;
+    cout << "CPF do cliente: ";
+    cin >> cpf;
+    bool clienteEncontrado = false;
+    for (auto cliente = clientes.begin(); cliente != clientes.end(); cliente++) {
+        if (cliente->cpf == cpf) {
+            locacao.cliente = *cliente;
+            clienteEncontrado = true;
+            break;
+        }
+    }
+    if (!clienteEncontrado) {
+        cout << "Cliente nao encontrado. Se necessario, cadastre no módulo de clientes" << endl;
+        return;
+    }
+    cout << "Placa do veiculo: ";
+    cin >> placa;
+    bool veiculoEncontrado = false;
+    for (auto veiculo = veiculos.begin(); veiculo != veiculos.end(); veiculo++) {
+        if (veiculo->placa == placa) {
+            locacao.veiculo = *veiculo;
+            veiculoEncontrado = true;
+            break;
+        }
+    }
+    if (!veiculoEncontrado) {
+        cout << "Veiculo nao encontrado. Se necessario, cadastre no módulo de veiculos" << endl;
+        return;
+    }
+    cout << "Data/hora de retirada: ";
+    cin >> locacao.data_hora_retirada;
+    cout << "Retirada ja aconteceu? (S-Sim / N-Nao): ";
+    cin >> opcao;
+    if(opcao == 'S' || opcao == 's'){
+        locacao.realizada = true;
+    }
+    else if (opcao == 'N' || opcao == 'n'){
+        locacao.realizada = false;
+    }
+    else{
+        cout << "Opcao invalida" << endl;
+        return;
+    }
+    locacoes.push_back(locacao);
+    cout << "Locacao registrada com sucesso!" << endl;
+    system("pause");
+}
 
 void menuVeiculos (vector<Veiculo> &veiculos){
     while (true) {
