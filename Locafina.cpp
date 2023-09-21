@@ -131,7 +131,9 @@ void listarClientes(vector<Cliente> &clientes) {
             cout << "---------------------------" << endl;
         }
     }
-    
+    string x;
+    cout << "Digite 0 para sair: ";
+    cin >> x;
     system("pause");
 }
 
@@ -259,6 +261,9 @@ void listarVeiculos(const vector<Veiculo> &veiculos) {
             cout << "----------------------------------------" << endl;
         }
     }
+    string x;
+    cout << "Digite 0 para sair: ";
+    cin >> x;
     system("pause");
 }
 
@@ -282,6 +287,7 @@ void localizarVeiculo(const vector<Veiculo>& veiculos) {
     }
     if(!encontrado){
         cout << "Veiculo nao encontrado." << endl;
+        
         system("pause");
     }
     
@@ -432,6 +438,9 @@ void listarLocacao(vector<Locacao> &locacoes){
             cout << "----------------------------------------" << endl;
         }
     }
+    string x;
+    cout << "Digite 0 para sair: ";
+    cin >> x;
     system("pause");
 }
 
@@ -627,6 +636,9 @@ void listaOcorrenciasClientes(vector<Cliente> &clientes, vector<Ocorrencia> &oco
             } else {
                 cout << "O cliente nao apresenta ocorrencias!" << endl;                
             }
+            string x;
+            cout << "Digite 0 para sair: ";
+            cin >> x;
             system("pause");
             return;
         }
@@ -634,6 +646,9 @@ void listaOcorrenciasClientes(vector<Cliente> &clientes, vector<Ocorrencia> &oco
     if(!clienteEncontrado){
         cout << "CPF nao encontrado. Realize uma nova busca ou finalize a tarefa" << endl;
     }
+    string x;
+    cout << "Digite 0 para sair: ";
+    cin >> x;
     system("pause");
     
 }
@@ -667,6 +682,9 @@ void listarOcorrenciasPorVeiculo(vector<Ocorrencia> &ocorrencias, vector<Locacao
         cout << "Veiculo nao encontrado." << endl;
     
     }
+    string x;
+    cout << "Digite 0 para sair: ";
+    cin >> x;
     system("pause");
 }
 
