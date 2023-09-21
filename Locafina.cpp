@@ -614,18 +614,18 @@ void listaOcorrenciasClientes(vector<Veiculo> &veiculos, vector<Cliente> &client
     cout << "CPF nao encontrado. Realize uma nova busca ou finalize a tarefa" << endl;
 }
 
-void listarOcorrenciasPorCliente(vector<Ocorrencia> &ocorrencias) {
+void listarOcorrenciasPorVeiculo(vector<Ocorrencia> &ocorrencias) {
     
     system("clear||cls");
-    string cpf;
+    string placa;
     bool encontrado = false;
     
-    cout << "Digite o CPF do cliente: ";
-    cin >> cpf;
+    cout << "Digite a placa do veículo: ";
+    cin >> placa;
 
-    cout << "Ocorrências do cliente com CPF " << cpf << ":" << endl;
+    cout << "Ocorrências do veículo com placa " << placa << ":" << endl;
     for (const auto& ocorrencia : ocorrencias) {
-        if (ocorrencia.clienteCPF == cpf) {
+        if (ocorrencia.placaveiculo == placa) {
             cout << "Descrição: " << ocorrencia.descricao << endl;
             cout << "Data: " << ocorrencia.data_hora_ocorrencia << endl;
             cout << "Apólice: " << ocorrencia.numApolice << endl;
@@ -637,9 +637,6 @@ void listarOcorrenciasPorCliente(vector<Ocorrencia> &ocorrencias) {
     
     }
 }
-
-
-
 
 
 void menuOcorrencia(vector<Locacao> &locacoes, vector<Ocorrencia> &ocorrencias){
