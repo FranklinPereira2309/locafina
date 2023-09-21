@@ -20,6 +20,11 @@ struct Veiculo {
     string data_hora_entrega_prevista;
 };
 
+struct Ocorrencia {
+    string descricao;
+    string data_hora_ocorrencia;
+    int numApolice;
+};
 struct Locacao {
     Cliente cliente;
     Veiculo veiculo;
@@ -27,12 +32,6 @@ struct Locacao {
     string data_hora_retirada;
     string data_hora_entrega;
     bool realizada;
-};
-
-struct Ocorrencia {
-    string descricao;
-    string data_hora_ocorrencia;
-    int numApolice;
 };
 
 void incluirCliente(vector<Cliente> &clientes) {
@@ -258,7 +257,6 @@ void listarVeiculos(const vector<Veiculo> &veiculos) {
             cout << "----------------------------------------" << endl;
         }
     }
-   
     system("pause");
 }
 
@@ -435,6 +433,80 @@ void listarLocacao(vector<Locacao> &locacoes){
     system("pause");
 }
 
+void incluirOcorrencia (vector<Locacao> &locacoes, vector<Ocorrencia> &ocorrencias){
+    system("clear||cls");
+    string cpf, placa;
+    cout << "Digite o CPF do cliente: " << endl;
+    getline(cin >> ws, cpf);
+    cout << "Digite a placa do veiculo: " << endl;
+    getline(cin >> ws, placa);
+
+    bool locacaoEncontrada = false;
+
+    for (auto locacao = locacoes.begin(); locacao != locacoes.end(); locacao++) {
+        if (locacao->cliente.cpf == cpf && locacao->veiculo.placa == placa) {
+            locacaoEncontrada = true;
+            Ocorrencia ocorrencia;
+            cout << "Informe a descricao da ocorrencia: " << endl;
+            getline(cin >> ws, ocorrencia.descricao);
+            cout << "Informe a data/hora da ocorrencia: " << endl;
+            getline(cin >> ws, ocorrencia.data_hora_ocorrencia);
+            cout << "Informe o numero da apolice do seguro: " << endl;
+            cin >> ocorrencia.numApolice;
+            ocorrencias.push_back(ocorrencia);
+            locacao->ocorrencia = ocorrencia;
+            cout << "Ocorrencia registrada com sucesso!" << endl;
+            system("pause");
+            break;
+        }
+    }
+
+    if(!locacaoEncontrada){
+        cout << "Locacao nao encontrada. Verifique se os dados foram digitados corretamente." << endl;
+        system("pause");
+        return;
+    } 
+
+}
+
+void menuOcorrencia(vector<Locacao> &locacoes, vector<Ocorrencia> &ocorrencias){
+    while (true) {
+        system("clear||cls");
+        int escolha;
+        cout << "------ GESTAO DE OCORRENCIAS ------" << endl;
+        cout << "1. Incluir" << endl;
+        cout << "2. Excluir" << endl;
+        cout << "3. Alterar" << endl;
+        cout << "4. Listar por cliente" << endl;
+        cout << "5. Listar por veiculo" << endl;
+        cout << "0. Sair" << endl;
+        cout << "Escolha uma opcao: ";
+        cin >> escolha;
+
+        switch (escolha) {
+            case 1:
+                incluirOcorrencia(locacoes, ocorrencias);
+                break;
+            case 2:
+                
+                break;
+            case 3:
+                
+                break;
+            case 4:
+                
+                break;
+            case 0:
+                cout << "Retornando ao menu principal." << endl;
+                system("clear||cls");
+                return;
+            default:
+                cout << "Opcao invalida. Tente novamente." << endl;
+                break;
+        }
+    }
+}
+
 void menuVeiculos (vector<Veiculo> &veiculos){
     while (true) {
         system("clear||cls");
@@ -585,7 +657,7 @@ int main() {
                 menuLocacao(locacoes, veiculos, clientes);
                 break;
             case 4:
-                //inserir menuOcorrencia();
+               menuOcorrencia(locacoes, ocorrencias);
             case 0:
                 cout << "Saindo do programa..." << endl;
                 system("clear||cls");
