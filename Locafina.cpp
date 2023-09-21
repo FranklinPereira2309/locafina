@@ -575,6 +575,44 @@ void alterarOcorrencia(vector<Locacao> &locacoes) {
 
     system("pause");
 }
+void listaOcorrenciasClientes(vector<Veiculo> &veiculos, vector<Cliente> &clientes, vector<Ocorrencia> &ocorrencias) {
+    
+    string cpf;
+
+    cout << "Digite o CPF do cliente: ";
+    cin >> cpf;
+
+    bool clienteEncontrado = false;
+    int totalOcorrencias = 0; 
+
+    for (const Cliente &cliente : clientes) {
+        if (cliente.cpf == cpf) {
+            clienteEncontrado = true;
+
+            for (const Ocorrencia &ocorrencia : ocorrencias) {
+                if (ocorrencia.cpfCliente == cpf) {
+                    totalOcorrencias++;
+                }
+            }
+
+            if (totalOcorrencias > 0) {
+                cout << "Total de ocorrencias associadas ao CPF: " << totalOcorrencias << endl;
+                
+                for (const Ocorrencia &ocorrencia : ocorrencias) {
+                    if (ocorrencia.cpfCliente == cpf) {
+                        cout << ocorrencia.tipo << endl;
+                    }
+                }
+            } else {
+                cout << "O cliente nao apresenta ocorrencias!" << endl;                
+            }
+
+            return;
+        }
+    }
+
+    cout << "CPF nao encontrado. Realize uma nova busca ou finalize a tarefa" << endl;
+}
 
 void menuOcorrencia(vector<Locacao> &locacoes, vector<Ocorrencia> &ocorrencias){
     while (true) {
